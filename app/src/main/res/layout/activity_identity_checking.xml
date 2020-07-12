@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".IdentificationChecking.IdentityCheckingActivity">
+
+    <TextView
+        android:id="@+id/description_verification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please, insert your number and the code that you received through SMS"
+        android:textAlignment="center"
+        android:textSize="20dp"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/verification_number"
+        />
+
+    <EditText
+        android:id="@+id/verification_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_identify_user_telephone"
+        android:inputType="phone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description_verification"
+
+    ></EditText>
+
+    <EditText
+        android:id="@+id/verification_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_identify_user_code"
+        android:maxLength="6"
+        android:inputType="number"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/verification_number"
+
+        ></EditText>
+
+
+    <Button
+        android:id="@+id/verify_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:textColor="@android:color/white"
+        android:text="@string/verify_button_name"
+        app:layout_constraintTop_toBottomOf="@id/verification_code"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:width="200dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
