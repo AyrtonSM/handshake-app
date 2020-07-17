@@ -10,6 +10,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,11 +19,14 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.handshaking.Adapter.Contact.ContactAdapter;
 import com.example.handshaking.Model.Contact;
 import com.example.handshaking.R;
+import com.example.handshaking.ViewModel.ContactsViewModel;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -33,40 +38,23 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class ContactsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
     public RecyclerView mContacts;
     public RecyclerView.Adapter mContactsAdapter;
     public RecyclerView.LayoutManager mContactsLayoutManager;
+    public Observer<ArrayList<Contact>> contacts;
 
-    public ArrayList<Contact> contacts;
     public ContactsFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ContactsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ContactsFragment newInstance(String param1, String param2) {
         ContactsFragment fragment = new ContactsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,8 +63,7 @@ public class ContactsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
 
 
@@ -136,29 +123,6 @@ public class ContactsFragment extends Fragment {
         }
     }
 
-    private void getContactList(){
-
-        Cursor phones = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null,
-                null,
-                null,
-                null);
-
-        contacts = new ArrayList<>();
-
-        while(phones.moveToNext()){
-            Contact contact = new Contact();
-
-            String name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-            String phone = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-
-            contact.setName(name);
-            contact.setTelephone(phone);
-
-            contacts.add(contact);
-        }
-
-    }
 
     /**
      * buildContactList is responsible for building the contact list in the main page, so the current user can
@@ -168,17 +132,23 @@ public class ContactsFragment extends Fragment {
         mContacts =  getActivity().findViewById(R.id.contacts);
         mContacts.setHasFixedSize(true);
         mContacts.setLayoutManager(new LinearLayoutManager(getContext()));
-        mContactsAdapter = new ContactAdapter(contacts);
 
-        mContacts.setAdapter(mContactsAdapter);
-        mContactsAdapter.notifyDataSetChanged();
    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getPermissions();
-        getContactList();
+        ContactsViewModel contactsViewModel = new ViewModelProvider(this).get(ContactsViewModel.class);
+        contactsViewModel.setActivity(getActivity());
+        contactsViewModel.getContacts().observe(getViewLifecycleOwner(), contacts -> {
+            Toast.makeText(getContext(), "waaaa", Toast.LENGTH_LONG).show();
+            mContactsAdapter = new ContactAdapter(contacts);
+            mContacts.setAdapter(mContactsAdapter);
+            mContactsAdapter.notifyDataSetChanged();
+
+        });
+
         buildContactList();
 
     }

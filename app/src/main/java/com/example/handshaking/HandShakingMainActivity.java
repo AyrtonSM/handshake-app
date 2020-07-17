@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.example.handshaking.Fragment.CallFragment;
 import com.example.handshaking.Fragment.ChatFragment;
 import com.example.handshaking.Fragment.ContactsFragment;
+import com.example.handshaking.ViewModel.HandShakingViewModel;
 
 public class HandShakingMainActivity extends AppCompatActivity
         implements ContactsFragment.OnFragmentInteractionListener,
@@ -15,6 +16,8 @@ public class HandShakingMainActivity extends AppCompatActivity
 
 
     private FragmentTabHost mTabHost;
+    private HandShakingViewModel handShakingViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
