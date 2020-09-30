@@ -1,10 +1,7 @@
 package com.example.handshaking.Adapter.Contact;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +13,14 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.handshaking.Activities.Chat.ChatActivity;
 import com.example.handshaking.Activities.Chat.FriendRequestActivity;
-import com.example.handshaking.Model.Contact;
+import com.example.handshaking.Entity.Contact;
 import com.example.handshaking.Model.FriendCollection;
 import com.example.handshaking.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {

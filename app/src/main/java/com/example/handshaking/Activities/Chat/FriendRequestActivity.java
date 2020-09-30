@@ -5,13 +5,13 @@ import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.handshaking.Entity.FriendshipRequest;
+import com.example.handshaking.Entity.Contact;
 import com.example.handshaking.R;
+import com.example.handshaking.Repository.FriendRepository;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,9 +50,44 @@ public class FriendRequestActivity extends AppCompatActivity {
         invite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Friendship Request Sent", Toast.LENGTH_LONG).show();
-                invite.setEnabled(false);
-                invite.setVisibility(View.GONE);
+
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        FriendRepository friendRepository = new FriendRepository();
+                        String name = "Ayrton Sousa Marinho";
+                        String telephone = "+5588996692296";
+
+                        Contact user = new Contact();
+                        user.setName(name);
+                        user.setTelephone(telephone);
+
+                        Contact friend = new Contact();
+                        friend.setName(contactName.getText().toString());
+                        friend.setTelephone(contactPhone.getText().toString());
+
+                        FriendshipRequest friendshipRequest = new FriendshipRequest();
+                        friendshipRequest.setOriginContact(user);
+                        friendshipRequest.setFriendContact(friend);
+
+                        String message = friendRepository.sendFriendshipRequest(friendshipRequest);
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+
+                        invite.setEnabled(false);
+                        invite.setVisibility(View.GONE);
+
+                    }
+                });
+
+
+
             }
         });
 

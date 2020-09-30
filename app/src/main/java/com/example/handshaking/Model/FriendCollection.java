@@ -2,6 +2,8 @@ package com.example.handshaking.Model;
 
 import android.util.Log;
 
+import com.example.handshaking.Entity.Contact;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 

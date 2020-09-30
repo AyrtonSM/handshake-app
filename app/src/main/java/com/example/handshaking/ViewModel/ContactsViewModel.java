@@ -7,9 +7,8 @@ import android.provider.ContactsContract;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.handshaking.Model.Contact;
+import com.example.handshaking.Entity.Contact;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ContactsViewModel extends ViewModel {

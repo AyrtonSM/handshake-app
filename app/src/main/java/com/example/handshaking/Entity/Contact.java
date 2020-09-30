@@ -1,10 +1,19 @@
-package com.example.handshaking.Model;
+package com.example.handshaking.Entity;
 
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Contact {
 
+    @Expose
+    @SerializedName(value = "id", alternate = "contactId")
     private int id;
+    @Expose
+    @SerializedName(value = "name", alternate = "contactName")
     private String name;
+    @Expose
+    @SerializedName(value = "telephone", alternate = "contactTelephone")
     private String telephone;
 
 

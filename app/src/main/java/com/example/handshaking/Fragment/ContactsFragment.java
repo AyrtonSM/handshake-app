@@ -2,7 +2,6 @@ package com.example.handshaking.Fragment;
 
 import android.Manifest;
 import android.content.Context;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,18 +14,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.handshaking.Adapter.Contact.ContactAdapter;
-import com.example.handshaking.Model.Contact;
+import com.example.handshaking.Entity.Contact;
 import com.example.handshaking.R;
 import com.example.handshaking.ViewModel.ContactsViewModel;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**

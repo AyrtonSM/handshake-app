@@ -15,8 +15,6 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
-import com.example.handshaking.Model.Contact;
-
 
 public class ContactProvider implements LoaderManager.LoaderCallbacks<Cursor> {
 
