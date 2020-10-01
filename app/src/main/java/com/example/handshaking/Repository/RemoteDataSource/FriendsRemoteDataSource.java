@@ -1,5 +1,7 @@
 package com.example.handshaking.Repository.RemoteDataSource;
 
+import android.util.Log;
+
 import com.example.handshaking.Entity.Friend;
 import com.example.handshaking.Entity.FriendshipRequest;
 import com.example.handshaking.Interfaces.WebService;
@@ -62,23 +64,21 @@ public class FriendsRemoteDataSource {
     }
 
     public String sendFriendshipRequest(FriendshipRequest friendshipRequest){
-        Call<String> friendshipCall =  this.webService.sendFriendship(friendshipRequest);
+        Call<com.example.handshaking.Entity.Response> friendshipCall =  this.webService.sendFriendship(friendshipRequest);
         String friendshipMessage = null;
         try {
             friendshipCall.timeout().deadline(10, TimeUnit.SECONDS);
-            String friendshipResponse = friendshipCall.execute().body();
-            try {
-                JSONObject friendshipResponseCode = new JSONObject(friendshipResponse);
-                if(friendshipResponseCode.getInt("status_code") == 200){
-                    friendshipMessage = "Friendship Request Sent to " + friendshipRequest.getFriendContact().getName() ;
-                }
+            com.example.handshaking.Entity.Response friendshipResponse = friendshipCall.execute().body();
 
-            } catch (JSONException e) {
-                e.printStackTrace();
+            friendshipMessage = friendshipResponse.getMessage();
+
+            if(!friendshipResponse.getMessage().isEmpty()){
+                friendshipMessage = "Friendship Request Sent to " + friendshipRequest.getFriendContact().getName() ;
             }
 
         } catch (IOException e) {
             friendshipMessage = "Sorry! It wasn't possible to deliver your request :( I'm trying to find out why";
+            Log.e("message_error", e.getLocalizedMessage());
             e.printStackTrace();
         }
 
